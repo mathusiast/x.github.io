@@ -1,0 +1,367 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><title>Tarab AI lab preview</title><style>:root{--bg:#fbfaf7;--fg:#1d1d1d;--mut:#777;--line:#8883;--soft:#8881;--link:#0b5cad;--no:#c0392b;--won:#d68910;--ln:#1e8449;--r0:#6250d6;--r1:#e87ba4;--r2:#1baf7a;--r3:#eda100;}
+@media(prefers-color-scheme:dark){:root{--bg:#161616;--fg:#eee;--mut:#aaa;--line:#fff2;--soft:#ffffff0d;--link:#7ab7ff;--no:#ec7063;--won:#f5b041;--ln:#58d68d;--r0:#9085e9;--r1:#dd6699;--r2:#199e70;--r3:#c98500;}}
+*{box-sizing:border-box}html,body{height:100%}body{font:14px/1.4 -apple-system,system-ui,sans-serif;margin:0;background:var(--bg);color:var(--fg);overflow:hidden}
+#app{display:grid;grid-template-columns:minmax(0,1fr) 384px;grid-template-rows:auto minmax(0,1fr);height:100vh}
+header{grid-column:1/3;display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:7px 12px;border-bottom:1px solid var(--line)}
+header b{font-size:15px}.m{color:var(--mut)}a{color:var(--link)}button,select{font:inherit;padding:3px 10px;cursor:pointer}
+#pp{min-width:92px;font-weight:600}#rec{font-weight:600}#seg{font-size:12.5px}
+#legend{font-size:11.5px;color:var(--mut);flex-basis:100%}.k{display:inline-block;width:10px;height:10px;margin:0 4px 0 10px;vertical-align:-1px}.k:first-child{margin-left:0}
+#tl{position:relative;min-height:0}#scroll{position:absolute;inset:0;overflow-x:auto;overflow-y:hidden}#axis{position:absolute;left:0;top:0;pointer-events:none}
+#pstaffbox{flex:none;border-bottom:1px solid var(--line);padding:0 0 0 4px}
+aside{grid-column:2;grid-row:2/3;display:flex;flex-direction:column;min-height:0;border-left:1px solid var(--line)}
+#ytbox{aspect-ratio:16/9;background:#000;flex:none}#ytbox iframe{width:100%;height:100%;border:0;display:block}
+#now{padding:8px 12px;border-bottom:1px solid var(--line);flex:none;height:169px;overflow:hidden}#nowname{height:24px;white-space:nowrap;overflow:hidden}#nowline{height:50px;overflow:hidden}#nowjins{height:20px;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden}#nowtags{white-space:nowrap}#hznow{font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.15}
+#nowname{font-size:17px;font-weight:600}#now .m{font-size:12px}.tag{display:inline-block;font-size:11.5px;padding:0 6px;border-radius:8px;margin-right:4px;color:#8886;background:#8881}.tag.on{color:#fff}.tag.on.h{background:var(--won)}.tag.on.u,.tag.on.d{background:var(--no)}
+#tblcap{font-size:12.5px;margin:0;padding:7px 12px 3px;font-weight:600;flex:none}#tblbox{flex:1;min-height:0;overflow-y:auto;padding:0 12px 8px}th{position:sticky;top:0;background:var(--bg)}
+table{border-collapse:collapse;font-size:12.5px;width:100%}td,th{padding:2px 7px 2px 0;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}th{font-weight:600;font-size:11.5px;color:var(--mut)}td:first-child,th:first-child{text-align:left}
+tr.sounding td{background:#d6891066}td:last-child,th:last-child{padding-right:0}
+details{margin-top:8px;font-size:12.5px}summary{cursor:pointer;color:var(--mut)}.bad{color:var(--no)}
+svg{display:block}text{font-family:inherit}.bgax{fill:var(--bg)}.grid{stroke:var(--line);stroke-width:1}.tick{stroke:var(--line);stroke-width:1}.pl{stroke:var(--soft);stroke-width:1}
+.tk{font-size:11px;fill:var(--mut)}.lb{font-size:10.5px;fill:var(--mut)}.lt{font-size:11px;fill:var(--fg);font-weight:600}.ax{font-size:10.5px;fill:var(--fg)}
+.pn{fill:var(--link);fill-opacity:.8}.d0{fill:none;stroke:var(--ln);stroke-width:3.2;stroke-linecap:round}.d0o{fill:none;stroke:var(--ln);stroke-opacity:.35;stroke-width:3.2;stroke-linecap:round}.dz{fill:none;stroke:var(--won);stroke-width:2.2;stroke-linecap:round}
+.loud{fill:none;stroke:var(--mut);stroke-width:1}.note{fill:var(--fg);fill-opacity:.82;cursor:pointer}.note.sounding{fill:var(--won);fill-opacity:1}
+.hang{fill:none;stroke:var(--won);stroke-width:1.6;pointer-events:none}.turn{font-size:9px;fill:var(--no)}.nn{font-size:10px;fill:var(--mut)}.st{font-size:9.5px;fill:var(--mut)}.tie{stroke:var(--line);stroke-width:1}
+.drop{fill:none;stroke:var(--no);stroke-width:1.2}.seg{fill:var(--link);fill-opacity:.16;stroke:var(--link);stroke-width:1}.segt{font-size:11.5px;fill:var(--fg)}.sil{fill:var(--mut);fill-opacity:.45}.cutb{fill:var(--no);fill-opacity:.07}.cutr{fill:var(--no);fill-opacity:.5}.cutt{font-size:11px;fill:var(--no)}
+.jb{fill-opacity:.3;stroke-width:1;cursor:pointer}.jb.lit{fill-opacity:.62;stroke-width:2}.jt{font-size:10px;fill:var(--fg);pointer-events:none}.bq{stroke-width:3;stroke-linecap:round;pointer-events:none}.bk{font-size:10px;font-weight:700;fill:var(--fg);pointer-events:none}.sw{stroke:none}
+#added{display:inline-flex;flex-wrap:wrap;gap:6px}.chip{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;padding:1px 2px 1px 7px;border:1px solid var(--line);border-radius:10px}.chip i{width:10px;height:10px;border-radius:2px}.chip button{padding:0 5px;border:0;background:none;color:var(--mut)}
+#toast{position:fixed;left:14px;bottom:14px;z-index:5;display:flex;flex-direction:column;gap:6px;pointer-events:none}#toast div{background:var(--fg);color:var(--bg);font-size:12.5px;padding:6px 10px;border-radius:6px;max-width:620px;opacity:.94}
+.cur{stroke:var(--won);stroke-width:2;pointer-events:none}.selb{fill:#2563eb1c;stroke:#2563eb88;stroke-width:1;pointer-events:none}#sel{width:62px}.tn .hd{fill:var(--fg)}.tn.sounding .hd{fill:var(--won)}.dur{stroke:var(--mut);stroke-opacity:.55;stroke-width:1.6}.pcap{font-size:12px;fill:var(--fg);font-weight:600}
+
+.sl{stroke:var(--fg);stroke-width:1}.led{stroke:var(--fg);stroke-width:1}.hd{fill:var(--fg)}.sn1.off .hd{fill:var(--mut);fill-opacity:.45}.sn1.off .sn,.sn1.off .acc{fill:var(--mut)}.sn1.off .accl{stroke:var(--mut)}.sn1.sounding .hd{fill:var(--won);fill-opacity:1;stroke:var(--won);stroke-width:5;stroke-opacity:.35}.sn1.sounding .sn{fill:var(--won);font-weight:700}.acc{fill:var(--fg);font-size:17px}.accl{stroke:var(--fg);stroke-width:1.5;fill:none}
+.clef{fill:var(--fg);font-family:"Apple Symbols","Noto Music","Segoe UI Symbol",serif}.sn{font-size:10.5px;fill:var(--fg)}.bar{fill:none;stroke:var(--mut);stroke-width:1}.bt{font-size:10.5px;fill:var(--fg)}.pvhid{fill:var(--bg)}.pvoff{fill:var(--mut)}#added{display:none}#shown{display:inline-flex;flex-wrap:wrap;gap:4px 12px}#shown .k{margin:0 4px 0 0}</style></head><body><div id=app>
+<header><span id=rec></span><button id=pp onclick='toggle()'>▶ Play</button><label class=m>speed <select id=speed onchange='speed(this.value)'><option value=0.25>0.25×</option><option value=0.5>0.5×</option><option value=0.75>0.75×</option><option value=1 selected>1×</option></select></label><label class=m>zoom <select id=zoom onchange='zoom(this.value)'><option value=240>240 px/s</option><option value=480>480 px/s</option><option value=960>960 px/s</option><option value=1920>1920 px/s</option><option value=3840>3840 px/s</option></select></label>
+<label class=m><input type=checkbox id=one checked onchange='single(this.checked)'> one segment at a time</label><select id=seg title='a segment to go to' onchange='seek(SEGS[+this.value].from)'></select><label class=m title='drag across the picture, or type note numbers of the segment in view'>play only <input id=sel placeholder='notes 2-15' onchange='selNotes(this.value)'></label><button id=selx onclick='selClear()' title='play everything again'>✕</button><span id=shown></span><span id=added></span>
+<div id=legend><span class=k style='background:var(--ln);border-radius:50%;width:6px;height:6px'></span>the pitch as heard <span class=k style='background:var(--fg)'></span>a note <span class=k style='border:2px solid var(--won);border-radius:4px;height:8px'></span>a hang (3× the middle stay) <span style='color:var(--no)'>▲▼</span> a turn <span class=k style='background:var(--no);opacity:.5'></span>a silence that ends a segment (layer 2) · click anywhere on the picture to play from there</div></header>
+<section id=tl><div id=scroll></div><svg id=axis></svg></section>
+<aside><div id=ytbox><div id=yt></div></div>
+<div id=now><div class=m>heard now</div><div id=hznow>—</div><div id=nowname></div><div id=nowline class=m></div><div id=nowtags></div></div>
+<div id=pstaffbox><svg id=pstaff width=376 height=150></svg></div>
+<h3 id=tblcap></h3><div id=tblbox><table id=tbl></table><details><summary>the moves: from which note to which</summary><table id=moves></table></details></div></aside>
+</div><div id=toast></div><script>
+// THE LAB PREVIEW'S LOADER (preview.py puts this file inside tarab-ai-lab-preview.html, after the debugger's page and before its drawing).
+// No server. It reads video.json, then VIDEO-layers.json (layers 0–2, as the debugger's server answers /data/VIDEO.json) and each names layer
+// of LAYERS, VIDEO-<name>.json (as the debugger's server answers a file given to «add layers»). Then it runs the debugger's drawing, debugger.js
+// as it is, and puts the names layers on it as the debugger puts an added file. A checkbox per layer shows or hides it (the owner, 23 Nov 2026:
+// «it gives the user the ability to hide/show a layer»).
+// Mine: a names layer taken off closes up and comes back in its place with its colour; layers 0, 1 and 2 keep their place and are covered when
+// hidden (the debugger's drawing is not changed); the row of the player's notes is closed, its height given to layers 0 and 1 (the owner: «for
+// layers above layer 1, we only need to share the layers that provide the ajnas names and nothing in between»).
+// Everything here sits inside one function: the drawing's own names (layout, draw, axis, ADDED, …) are reached, none is declared again.
+(() => {
+  const LAYERS = ["names-recording-maqam-world", "names-two-maqam-world"];                                             // the names layers, in order: VIDEO-<name>.json (written by preview.py)
+  const BASE = [["l0", "layer 0 · physical"], ["l1", "layer 1 · notes"], ["l2", "layer 2 · segments"]], HIDDEN = new Set(), NAMED = [], NS = "http://www.w3.org/2000/svg";
+  const mm0 = s => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).padStart(4, "0")}`;
+  const get = async f => { const r = await fetch(f, { cache: "no-store" }); if (!r.ok) throw new Error(`${f}: ${r.status}`); return r.json(); };
+
+  // a hidden layer 0, 1 or 2: its rows covered, in the picture and in the strip of titles at the left
+  function cover(svg, width, titles) {
+    for (const [id, label] of BASE) {
+      if (!HIDDEN.has(id)) continue;
+      const [a, b] = id === "l0" ? [G.y0, G.y1 - 3] : id === "l1" ? [G.y1, G.y2 - 3] : [G.y2, G.y2 + G.h2];
+      const r = document.createElementNS(NS, "rect"); Object.entries({ x: 0, y: a, width, height: b - a, class: "pvhid" }).forEach(([k, v]) => r.setAttribute(k, v)); svg.appendChild(r);
+      if (titles) [[label, a + 11, "lt pvoff"], ["hidden", a + 24, "lb"]].forEach(([text, y, cls]) => { const t = document.createElementNS(NS, "text"); t.setAttribute("x", 4); t.setAttribute("y", y); t.setAttribute("class", cls); t.textContent = text; svg.appendChild(t); });
+    }
+  }
+
+  function start(missing) {
+    missing.forEach(f => say(`«${f}» was not found: not shown`));
+    const layout0 = layout, draw0 = draw, axis0 = axis;
+    layout = function () { const g = layout0(), a = Math.floor(g.hp / 2); g.h0 += a; g.yl += a; g.y1 += a; g.h1 += g.hp - a; g.yp = g.ys; g.hp = 0; return g; };
+    draw = function () { draw0(); cover(el("pic"), W, false); };
+    axis = function (k) { axis0(k); el("axis").querySelectorAll("text").forEach(t => { if (t.textContent === "the player's notes") t.remove(); }); cover(el("axis"), L, true); };
+    const known = NAMED.filter(a => DRAWS[a.type]);
+    NAMED.filter(a => !DRAWS[a.type]).forEach(a => say(`«${a.file}» is not shown: the page has no drawing for «${a.type}»`));
+    ADDED.push(...known);
+    const items = BASE.map(([id, label]) => [id, label, null]).concat(known.map(a => [a.file, a.name, a.c]));
+    el("shown").innerHTML = items.map(([id, label, c]) => `<label class=m><input type=checkbox checked data-id='${esc(id)}'> ${c === null ? "" : `<span class=k style="background:var(--r${c % COLORS})"></span>`}${esc(label)}</label>`).join("");
+    el("shown").addEventListener("change", ev => {
+      const id = ev.target.dataset.id, on = ev.target.checked;
+      if (BASE.some(([b]) => b === id)) on ? HIDDEN.delete(id) : HIDDEN.add(id);
+      else { known.find(a => a.file === id).off = !on; ADDED.length = 0; ADDED.push(...known.filter(a => !a.off)); if (LIT && !ADDED.some(a => a.file === LIT.file)) LIT = null; }
+      chips(); redraw();
+    });
+    chips(); redraw();
+  }
+
+  (async () => {
+    let V;
+    try {
+      V = (await get("video.json")).video;
+      if (!/^[A-Za-z0-9_-]{11}$/.test(V || "")) throw new Error("video.json names no video");
+      window.D = await get(`${V}-layers.json`);
+    } catch (err) { document.getElementById("tl").textContent = "nothing to show: " + err.message; return; }
+    document.title = "Tarab AI lab preview · " + V; document.getElementById("rec").textContent = V;
+    const seg = document.getElementById("seg");
+    D.segs.forEach((s, k) => { const o = document.createElement("option"); o.value = k; o.textContent = `segment ${s.n} · ${mm0(s.from)}–${mm0(s.to)} · ${s.notes.length} notes`; seg.appendChild(o); });
+    const missing = [];
+    for (const [k, name] of LAYERS.entries()) {
+      const file = `${V}-${name}.json`;
+      try { NAMED.push({ ...(await get(file)), file, modified: Date.now(), text: "", c: k }); } catch (err) { missing.push(file); }
+    }
+    window.PREVIEW_START = () => start(missing);
+    const js = document.createElement("script"); js.textContent = document.getElementById("drawing").textContent + "\n;PREVIEW_START();"; document.body.appendChild(js);
+  })();
+})();
+</script><script type=text/plain id=drawing>
+// THE DEBUGGER'S PAGE (debugger.py puts this file inside the page, after the data D). It draws; it measures nothing.
+// One time axis: layer 0 (pitch, loudness), layer 1 (the tuner, a run of the same name a note), the notes on a staff, layer 2 (the segments).
+// Below them, under layer 2: the layers added by «add layers», each file a block of its own colour (THE ADDED LAYERS, below).
+const el = id => document.getElementById(id), L = 112, STEP = D.step, DUR = D.hz.length * STEP;
+let PXS = D.pxs, RA = 0, RB = DUR, W = 0;                              // PXS: the zoom, pixels for a second
+try { PXS = +localStorage.getItem("debugger-zoom") || D.pxs; } catch (e) {}
+                                            // the stretch of the recording the picture shows: one segment, or all of it
+const X = t => L + (t - RA) * PXS;
+const mm = s => Math.floor(s / 60) + ":" + (s % 60).toFixed(1).padStart(4, "0"), esc = s => String(s).replace(/[&<>']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;" }[c]));
+const QH = hz => (1200 * Math.log2(hz / D.do) - D.tune) / 50;          // a frequency as a height: quarter tones above the sound's own Do
+const HZ = q => D.do * 2 ** ((q * 50 + D.tune) / 1200);                 // and back
+function tones(q) { const a = Math.abs(Math.round(q)), w = Math.floor(a / 4), f = ["", "¼", "½", "¾"][a % 4]; return a === 0 ? "0" : (w ? w : "") + f; }
+const signed = q => (q > 0 ? "+" : q < 0 ? "−" : "") + tones(q);
+const SEGS = D.segs;
+// each segment has its own scale of heights (its lowest note to its highest, a tone to spare each way); what sounds between two segments is drawn on the scale of the one before
+SEGS.forEach((s, k) => { s.lo = Math.min(...s.q) - 2; s.hi = Math.max(...s.q) + 2; s.t0 = k ? (SEGS[k - 1].to + s.from) / 2 : 0; s.t1 = k < SEGS.length - 1 ? (s.to + SEGS[k + 1].from) / 2 : DUR;
+  s.total = s.order1.reduce((a, o) => a + o[2], 0); });
+const segAt = t => { for (let k = 0; k < SEGS.length; k++) if (t < SEGS[k].t1) return k; return SEGS.length - 1; };
+let G = null;                                                           // the rows of the picture, from the height there is
+let ONE = true, CUR = 0;                                                // one segment at a time (the default), and which
+try { ONE = localStorage.getItem("debugger-one") !== "0"; } catch (e) {}
+
+const HH = 6;                                                          // the staff on the time axis: pixels for one step of the staff (a line to the next space), fixed
+let SP = { min: 0, max: 12 };                                         // the staff's lowest and highest step for the segments shown
+function layout() {
+  const PAD = 18;                                                                                  // under the axis: room for the sideways scroll bar
+  const hj = ADDED.reduce((s, a) => s + a.h, 0);                                                    // the added layers, below the layers
+  const H = el("tl").clientHeight - 14, ax = 20, h2 = 26, hs = 44, hl = 24, hu = 34, hst = Math.round((SP.max - SP.min) * HH + 10), gap = 6, rest = H - PAD - ax - h2 - hs - hu - hl - hst - 8 * gap - 4 - hj;
+  const h0 = Math.max(70, Math.round(rest * 0.34)), h1 = Math.max(90, Math.round(rest * 0.36)), hp = Math.max(60, rest - h0 - h1); let y = 2; const g = { H };
+  g.y0 = y; g.h0 = h0; y += h0 + 2; g.yl = y; g.hl = hl; y += hl + gap; g.y1 = y; g.h1 = h1; y += h1 + gap; g.yp = y; g.hp = hp; y += hp; g.ys = y; g.hs = hs; y += hs + gap; g.yu = y; g.hu = hu; y += hu + gap;
+  g.yst = y; g.hst = hst; y += hst + gap; g.y2 = y; g.h2 = h2; y += h2 + 2; g.yj = y; y += hj; g.ya = y; g.H = Math.max(H, y + ax + PAD); return g;
+}
+const yIn = (s, top, h) => q => top + h - 6 - (q - s.lo) / (s.hi - s.lo) * (h - 22);           // 16 px at the top of a row are kept for its title
+
+function draw() {
+  { const sh = SEGS.filter((s, k) => ONE ? k === CUR : true).flatMap(s => s.q.map(q => written(q).pos)); SP = { min: Math.min(1, ...sh) - 1, max: Math.max(11, ...sh) + 1 }; }
+  if (ONE) { RA = Math.max(0, SEGS[CUR].from - 0.4); RB = Math.min(DUR, SEGS[CUR].to + 0.4); } else { RA = 0; RB = DUR; } W = Math.ceil(X(RB) + 60);
+  ADDED.forEach(a => LINES[a.type](a)); G = layout(); el("scroll").style.overflowY = G.H > el("tl").clientHeight - 14 ? "auto" : "hidden";
+  const g = [], y0 = SEGS.map(s => yIn(s, G.y0, G.h0)), y1 = SEGS.map(s => yIn(s, G.y1, G.h1)), shown = SEGS.map((s, k) => ONE ? k === CUR : true), at = t => ONE ? CUR : segAt(t);
+  // the long silences: a band through every layer
+  D.silences.forEach(([a, d]) => { if (d >= D.cut && a + d > RA && a < RB) g.push(`<rect x=${X(Math.max(a, RA))} y=${G.y0} width=${(Math.min(a + d, RB) - Math.max(a, RA)) * PXS} height=${G.ya - G.y0} class=cutb />`); });
+  // the seconds
+  for (let s = Math.ceil(RA); s <= RB; s++) g.push(`<line x1=${X(s)} y1=${G.y0} x2=${X(s)} y2=${G.ya + 5} class=grid /><text x=${X(s)} y=${G.ya + 16} class=tk text-anchor=middle>${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}</text>`);
+  let tk = ""; for (let i = Math.ceil(RA * 10); i <= RB * 10; i++) if (i % 10) tk += `M${X(i / 10)} ${G.ya}v${i % 5 ? 3 : 5}`; g.push(`<path d="${tk}" class=tick />`);
+  // the notes of each segment as faint lines through layers 0 and 1
+  SEGS.forEach((s, k) => { if (shown[k]) s.q.forEach(q => g.push(`<path d="M${X(s.from)} ${y0[k](q).toFixed(1)}H${X(s.to)}M${X(s.from)} ${y1[k](q).toFixed(1)}H${X(s.to)}" class=pl />`)); });
+  // LAYER 0: the pitch every 10 ms; a pitch outside the segment's heights is drawn on the row's edge, pale
+  const i0 = Math.max(0, Math.floor(RA / STEP)), i1 = Math.min(D.hz.length, Math.ceil(RB / STEP));
+  const dots = (arr, cls, out) => { let a = "", b = ""; for (let i = i0; i < i1; i++) { if (!arr[i]) continue; const t = i * STEP, k = at(t), s = SEGS[k], q = QH(arr[i]);
+      if (q < s.lo - .5 || q > s.hi + .5) { if (out) b += `M${X(t).toFixed(1)} ${(q < s.lo ? G.y0 + G.h0 - 2 : G.y0 + 17)}h.01`; } else a += `M${X(t).toFixed(1)} ${y0[k](q).toFixed(1)}h.01`; }
+    g.push(`<path d="${a}" class=${cls} />`); if (out) g.push(`<path d="${b}" class=${out} />`); };
+  dots(D.hz, "d0", "d0o");
+  const dmin = Math.min(...D.db), dmax = Math.max(...D.db); let lp = ""; for (let i = i0; i < i1; i++) lp += (i > i0 ? "L" : "M") + X(i * STEP).toFixed(1) + " " + (G.yl + G.hl - 1 - (D.db[i] - dmin) / (dmax - dmin) * (G.hl - 2)).toFixed(1); g.push(`<path d="${lp}" class=loud />`);
+  // LAYER 1: the notes.
+  SEGS.forEach((s, k) => { if (shown[k]) s.notes.forEach((n, i) => { const [t, d, p, heard, own, off, db, turn, hang] = n, q = s.q[p], a = X(t), w = Math.max(d * PXS, 2), y = y1[k](q);
+    if (hang) g.push(`<rect x=${(a - 2).toFixed(1)} y=${(y - 7).toFixed(1)} width=${(w + 4).toFixed(1)} height=14 rx=4 class=hang />`);
+    g.push(`<rect x=${a.toFixed(1)} y=${(y - 4).toFixed(1)} width=${w.toFixed(1)} height=8 rx=2 class="note" data-k=${k} data-i=${i}><title>note ${i + 1} · ${esc(s.names[p])} · ${mm(t)} · ${d.toFixed(2)} s · heard at ${heard.toFixed(1)} Hz</title></rect><text x=${(a + w / 2).toFixed(1)} y=${(y - 8).toFixed(1)} class=nn text-anchor=middle>${i + 1}</text>`);
+    if (turn) g.push(`<text x=${(a + w / 2).toFixed(1)} y=${(y + (turn > 0 ? -17 : 19)).toFixed(1)} class=turn text-anchor=middle>${turn > 0 ? "▲" : "▼"}</text>`);
+    if (i) { const dq = q - s.q[s.notes[i - 1][2]], sy = G.ys + 12 + (i % 3) * 11; g.push(`<line x1=${a.toFixed(1)} y1=${G.ys} x2=${a.toFixed(1)} y2=${sy - 9} class=tie /><text x=${a.toFixed(1)} y=${sy} class=st text-anchor=middle>${signed(dq)}</text>`); } }); });
+  // THE UNIQUE NOTES COUNTER (the owner, 20 Nov 2026): every time a note not heard before in the segment sounds, its point, its count and its name
+  SEGS.forEach((s, k) => { if (!shown[k]) return; const seen = new Set(); s.notes.forEach((n, i) => { const p = n[2]; if (seen.has(p)) return; seen.add(p); const a = X(n[0]), uy = G.yu + 13 + (seen.size % 2) * 13;
+    g.push(`<line x1=${a.toFixed(1)} y1=${G.yu} x2=${a.toFixed(1)} y2=${uy - 9} class=tie /><text x=${(a + 2).toFixed(1)} y=${uy} class=st><title>note ${i + 1} · ${mm(n[0])} · the ${seen.size}th different note of segment ${s.n}</title>${seen.size} · ${esc(s.names[p])}</text>`); }); });
+  // LAYER 2: the segments, and every silence (a long one cuts)
+  SEGS.forEach((s, k) => { if (!shown[k]) return; const a = X(s.from), w = (s.to - s.from) * PXS, txt = `segment ${s.n} · ${mm(s.from)}–${mm(s.to)} · ${(s.to - s.from).toFixed(1)} s · ${s.notes.length} notes on ${s.q.length} different notes`;
+    g.push(`<rect x=${a} y=${G.y2 + 3} width=${w} height=${G.h2 - 6} rx=3 class=seg />`); for (let x = a + 8; x < a + w - 60; x += 900) g.push(`<text x=${x} y=${G.y2 + G.h2 / 2 + 4} class=segt>${esc(txt)}</text>`); });
+  D.silences.forEach(([a, d]) => { if (a + d < RA || a > RB) return; const cut = d >= D.cut, a2 = Math.max(a, RA), d2 = Math.min(a + d, RB) - a2; g.push(`<rect x=${X(a2).toFixed(1)} y=${G.y2 + (cut ? 3 : 9)} width=${Math.max(d2 * PXS, 1.5).toFixed(1)} height=${cut ? G.h2 - 6 : G.h2 - 18} class=${cut ? "cutr" : "sil"}><title>nothing sounds: ${mm(a)} · ${d.toFixed(2)} s${cut ? " · it ends a segment" : ""}</title></rect>`);
+    if (cut && d2 * PXS > 90) g.push(`<text x=${X(a2) + 6} y=${G.y2 + G.h2 / 2 + 4} class=cutt>silence ${d.toFixed(2)} s</text>`); });
+  // THE PLAYER'S NOTES (jinsteller/places.py, SAMPLES/places/VIDEO.json): its places as faint lines, its notes at their places, on the segment's scale of heights
+  { const yp = SEGS.map(s => yIn(s, G.yp, G.hp));
+    SEGS.forEach((s, k) => { if (shown[k]) D.places.forEach(([q]) => { if (q >= s.lo && q <= s.hi) g.push(`<path d="M${X(s.from)} ${yp[k](q).toFixed(1)}H${X(s.to)}" class=pl />`); }); });
+    D.pnotes.forEach(([t, d, p]) => { if (t + d < RA || t > RB) return; const k = segAt(t), s = SEGS[k], q = D.places[p][0]; if (!shown[k] || q < s.lo || q > s.hi) return; const y = yp[k](q);
+      g.push(`<rect x=${X(t).toFixed(1)} y=${(y - 4).toFixed(1)} width=${Math.max(d * PXS, 2).toFixed(1)} height=8 rx=2 class=pn><title>the player's note · ${D.places[p][1].toFixed(1)} Hz · ${mm(t)} · ${d.toFixed(2)} s</title></rect>`); }); }
+  // THE ADDED LAYERS, below the layers (the owner, 22 Nov 2026: «the layers should have been added below not in bewteen»): each file a block, drawn by its type
+  { let y = G.yj; ADDED.forEach((a, f) => { a.y = y; DRAWS[a.type](a, f, g); y += a.h; }); }
+  // THE NOTES ON A STAFF, running with the time: each note at its time (the sound's own Do written as middle C); its length is layer 1's
+  const hh = HH, ysp = p => G.yst + 5 + (SP.max - p) * hh;
+  G.ysp = ysp; G.hh = hh;
+  for (const p of [2, 4, 6, 8, 10]) g.push(`<line x1=${L} y1=${ysp(p).toFixed(1)} x2=${W} y2=${ysp(p).toFixed(1)} class=sl />`);
+  SEGS.forEach((s, k) => { if (shown[k]) s.notes.forEach((n, i) => { const [t, d, p, heard, own, off, db, turn, hang] = n, w = written(s.q[p]), cx = X(t) + hh * 1.3, cy = ysp(w.pos);
+    for (let q = 0; q >= w.pos; q -= 2) g.push(`<line x1=${(cx - hh * 2).toFixed(1)} y1=${ysp(q).toFixed(1)} x2=${(cx + hh * 2).toFixed(1)} y2=${ysp(q).toFixed(1)} class=led />`);
+    for (let q = 12; q <= w.pos; q += 2) g.push(`<line x1=${(cx - hh * 2).toFixed(1)} y1=${ysp(q).toFixed(1)} x2=${(cx + hh * 2).toFixed(1)} y2=${ysp(q).toFixed(1)} class=led />`);
+    g.push(`<g class="tn" data-k=${k} data-i=${i}>`
+      + head(cx, cy, hh) + accidental(w.acc, cx - hh * 1.3 - 5, cy, hh / 6.5) + `<title>note ${i + 1} · ${esc(s.names[p])} · ${mm(t)} · ${d.toFixed(2)} s</title></g>`); }); });
+  if (SEL) g.push(`<rect id=selband x=${X(SEL.a).toFixed(1)} y=${G.y0} width=${((SEL.b - SEL.a) * PXS).toFixed(1)} height=${G.ya - G.y0} class=selb />`);
+  g.push(`<g id=lit></g><line id=cur x1=0 y1=${G.y0} x2=0 y2=${G.ya + 5} class=cur />`);
+  el("scroll").innerHTML = `<svg id=pic width=${W} height=${G.H} viewBox="0 0 ${W} ${G.H}">${g.join("")}</svg>`;
+  el("pic").addEventListener("mousedown", ev => { DRAG = { x: ev.clientX, moved: false }; });
+  el("pic").addEventListener("mousemove", ev => { if (!DRAG || !(ev.buttons & 1) || Math.abs(ev.clientX - DRAG.x) < 5) return; DRAG.moved = true; const r = el("pic").getBoundingClientRect(), t = cx => Math.max(RA, Math.min(RB, RA + (cx - r.left - L) / PXS)), a = t(DRAG.x), b = t(ev.clientX); band(Math.min(a, b), Math.max(a, b)); });
+  el("pic").addEventListener("mouseup", ev => { if (DRAG && DRAG.moved) { const r = el("pic").getBoundingClientRect(), t = cx => Math.max(RA, Math.min(RB, RA + (cx - r.left - L) / PXS)), a = t(DRAG.x), b = t(ev.clientX); select(Math.min(a, b), Math.max(a, b), "drag"); } });
+  el("pic").addEventListener("click", ev => { if (DRAG && DRAG.moved) { DRAG = null; return; } DRAG = null; const jb = ev.target.closest(".jb"); if (jb) { light(+jb.dataset.f, +jb.dataset.b); return; } const n = ev.target.closest(".note"); clickSeek(n ? SEGS[+n.dataset.k].notes[+n.dataset.i][0] : Math.max(RA, Math.min(RB, RA + (ev.clientX - el("pic").getBoundingClientRect().left - L) / PXS))); });
+  focus = -1; lit = null; PK = -1; mark(NOW, true); lights();
+}
+
+// the fixed strip at the left: the rows' titles, and the heights of the segment in view (layer 0 in Hz, layer 1 by name)
+function axis(k) {
+  const s = SEGS[k], g = [`<rect x=0 y=0 width=${L} height=${G.H} class=bgax /><line x1=${L - .5} y1=${G.y0} x2=${L - .5} y2=${G.ya} class=grid />`], y0 = yIn(s, G.y0, G.h0), y1 = yIn(s, G.y1, G.h1);
+  const put = (yf, text) => { let last = 1e9; s.q.forEach((q, p) => { const y = yf(q); if (last - y < 11) return; last = y; g.push(`<text x=${L - 6} y=${(y + 3.5).toFixed(1)} class=ax text-anchor=end>${esc(text(q, p))}</text>`); }); };
+  put(y0, q => HZ(q).toFixed(1) + " Hz"); put(y1, (q, p) => s.names[p]);
+  { const yp = yIn(s, G.yp, G.hp); let last = 1e9; D.places.forEach(([q, hz]) => { if (q < s.lo || q > s.hi) return; const y = yp(q); if (last - y < 11) return; last = y; g.push(`<text x=${L - 6} y=${(y + 3.5).toFixed(1)} class=ax text-anchor=end>${hz.toFixed(1)} Hz</text>`); });
+    g.push(`<text x=4 y=${G.yp + 11} class=lt>the player's notes</text>`); }
+  g.push(`<text x=4 y=${G.y0 + 11} class=lt>layer 0 · physical</text><text x=4 y=${G.yl + 11} class=lb>loudness</text><text x=4 y=${G.y1 + 11} class=lt>layer 1 · notes</text><text x=4 y=${G.ys + 14} class=lb>the step to each</text><text x=4 y=${G.ys + 26} class=lb>note, in tones</text><text x=4 y=${G.yu + 12} class=lb>unique notes:</text><text x=4 y=${G.yu + 24} class=lb>count · new note</text><text x=4 y=${G.yst + 14} class=lt>the notes</text>` + [2, 4, 6, 8, 10].map(p => `<line x1=${L - 52} y1=${G.ysp(p).toFixed(1)} x2=${L} y2=${G.ysp(p).toFixed(1)} class=sl />`).join("") + `<text x=${L - 50} y=${(G.ysp(2) + G.hh * CLEF_DY).toFixed(1)} class=clef font-size=${(G.hh * CLEF_SIZE).toFixed(1)}>𝄞</text><text x=4 y=${G.y2 + G.h2 / 2 + 4} class=lt>layer 2 · segments</text>`);
+  ADDED.forEach(a => { let nm = a.name; while (nm.length > 1 && textW(nm, FONT_LT) > L - 22) nm = nm.slice(0, -2) + "…"; g.push(`<rect x=4 y=${a.y + 4} width=9 height=9 rx=2 class=sw style="fill:var(--r${a.c % COLORS})" /><text x=17 y=${a.y + 12.5} class=lt><title>${esc(a.type)} · ${esc(a.name)}</title>${esc(nm)}</text>`); });
+  const a = el("axis"); a.setAttribute("width", L); a.setAttribute("height", G.H); a.innerHTML = g.join("");
+}
+
+// THE STAFF: the sound's own Do written as middle C; a note's place on it and its accidental
+const CLEF_SIZE = 13.5, CLEF_DY = 2.6;        // the clef's glyph, in half-spaces of the staff: its size, and how far under the bottom line its baseline lies
+const LET = { Do: 0, Re: 1, Mi: 2, Fa: 3, Sol: 4, La: 5, Si: 6 };
+function written(q) { const m = D.names[((q % 24) + 24) % 24].match(/^(Do|Re|Mi|Fa|Sol|La|Si)(.*)$/); return { pos: 7 * Math.floor(q / 24) + LET[m[1]], acc: m[2] }; }
+const head = (cx, cy, h) => `<ellipse cx=${cx.toFixed(1)} cy=${cy.toFixed(1)} rx=${(h * 1.28).toFixed(2)} ry=${(h * .92).toFixed(2)} transform="rotate(-20 ${cx.toFixed(1)} ${cy.toFixed(1)})" class=hd />`;
+function accidental(acc, ax, cy, k) {                 // ♭, half-flat (♭ with a stroke), ♯, half-sharp (one stem); k scales the drawing
+  const f = v => (v * k).toFixed(1); let o = "";
+  if (acc.includes("♭")) o += `<text x=${ax.toFixed(1)} y=${(cy + 5 * k).toFixed(1)} class=acc text-anchor=middle font-size=${f(17)}>♭</text>` + (acc[0] === "½" ? `<path d="M${(ax - 6 * k).toFixed(1)} ${(cy - 5 * k).toFixed(1)}l${f(8)} ${f(-5)}" class=accl />` : "");
+  if (acc.includes("♯")) o += `<path d="${acc[0] === "½" ? `M${ax.toFixed(1)} ${(cy - 8 * k).toFixed(1)}v${f(16)}` : `M${(ax - 2 * k).toFixed(1)} ${(cy - 7.5 * k).toFixed(1)}v${f(16)}M${(ax + 2 * k).toFixed(1)} ${(cy - 8.5 * k).toFixed(1)}v${f(16)}`}M${(ax - 5 * k).toFixed(1)} ${(cy - 1.5 * k).toFixed(1)}l${f(10)} ${f(-3)}M${(ax - 5 * k).toFixed(1)} ${(cy + 4.5 * k).toFixed(1)}l${f(10)} ${f(-3)}" class=accl />`;
+  return o;
+}
+// THE SEGMENT'S STAFF in the side panel: the notes of the segment in view, each once, low to high, with the distance between neighbours
+let PK = -1;
+function segStaff(k) {
+  PK = k; const s = SEGS[k], sv = el("pstaff"), Wd = +sv.getAttribute("width"), Ht = +sv.getAttribute("height"), g = [];
+  const from = 0, to = s.notes.length - 1, PL = [...new Set(s.notes.slice(from, to + 1).map(n => n[2]))].sort((a, b) => a - b), n = PL.length, P = PL.map(p => written(s.q[p]));
+  const pmin = Math.min(1, ...P.map(p => p.pos)) - 1, pmax = Math.max(11, ...P.map(p => p.pos)) + 1, x0 = 52, dx = Math.min(56, (Wd - x0 - 10) / n), two = dx < 40, below = two ? 50 : 40, top = 24;
+  const h = Math.min(5.5, (Ht - top - 4 - below) / (pmax - pmin)), y = p => top + (pmax - p) * h, x = i => x0 + dx * (i + .5), xe = x0 + dx * n + 4, yn = y(pmin) + 12;
+  g.push(`<text x=6 y=15 class=pcap>segment ${s.n} · its notes, each once</text>`);
+  for (const p of [2, 4, 6, 8, 10]) g.push(`<line x1=6 y1=${y(p)} x2=${xe} y2=${y(p)} class=sl />`);
+  g.push(`<text x=8 y=${y(2) + h * CLEF_DY} class=clef font-size=${h * CLEF_SIZE}>𝄞</text>`);
+  P.forEach((w, i) => { const cx = x(i), cy = y(w.pos), pl = PL[i];
+    for (let p = 0; p >= w.pos; p -= 2) g.push(`<line x1=${cx - h * 2} y1=${y(p)} x2=${cx + h * 2} y2=${y(p)} class=led />`);
+    for (let p = 12; p <= w.pos; p += 2) g.push(`<line x1=${cx - h * 2} y1=${y(p)} x2=${cx + h * 2} y2=${y(p)} class=led />`);
+    g.push(`<g class="sn1" data-p=${pl}>` + head(cx, cy, h) + accidental(w.acc, cx - h * 1.3 - 6, cy, h / 6.5) + `<title>${esc(s.names[pl])} · ${HZ(s.q[pl]).toFixed(1)} Hz</title>`
+      + `<text x=${cx} y=${yn + (two && i % 2 ? 11 : 0)} class=sn text-anchor=middle>${esc(s.names[pl])}</text></g>`);
+    if (i < n - 1) { const yb = yn + (two ? 16 : 5), a = cx + 3, b = x(i + 1) - 3; g.push(`<path d="M${a} ${yb}v5H${b}v-5" class=bar /><text x=${(a + b) / 2} y=${yb + 16} class=bt text-anchor=middle>${tones(s.q[PL[i + 1]] - s.q[pl])}</text>`); } });
+  sv.innerHTML = g.join("");
+}
+
+// THE ONE TABLE: how the melody lives on the notes of the segment in view (the highest note first, as on the picture)
+function table(k) {
+  const s = SEGS[k]; let h = "<tr><th>note</th><th title='tones above the lowest note'>above</th><th title='times played'>times</th><th>visits</th><th title='share of the time'>share</th><th title='average stay, seconds'>avg</th><th title='longest stay, seconds'>longest</th></tr>";
+  for (let p = s.q.length - 1; p >= 0; p--) { const o = s.order1[p]; h += `<tr data-p=${p} class=""><td>${esc(s.names[p])}</td><td>${tones(s.q[p] - s.q[0])}</td><td>${o[0]}</td><td>${o[1]}</td><td>${Math.round(o[3] * 100)}%</td><td>${o[4].toFixed(2)}</td><td>${o[5].toFixed(2)}</td></tr>`; }
+  el("tbl").innerHTML = h; el("tblcap").textContent = `Segment ${s.n} · ${s.notes.length} notes on ${s.q.length} different notes · ${(s.to - s.from).toFixed(1)} s`;
+  el("moves").innerHTML = "<tr><th>move</th><th>tones</th><th>times</th><th>back</th></tr>" + s.moves.map(([i, j, c, back]) => `<tr><td>${esc(s.names[i])} → ${esc(s.names[j])}</td><td>${signed(s.q[j] - s.q[i])}</td><td>${c}</td><td>${back || ""}</td></tr>`).join("");
+  el("seg").value = k;
+}
+
+// THE ADDED LAYERS (the owner, 22 Nov 2026: «the debugger has an option 'add layers', which is file upload. once uploaded, per type of layer, it will
+// display it. for now we have one additional layer type, which is JINS. later perhaps we will add more»). A file is sent to the server (debugger.py
+// «added»), which reads it against layer 2 and answers with what is drawn here, or with why it is refused; this file only draws. A type has two
+// entries: LINES (how many lines it takes in the stretch shown) and DRAWS (its drawing). As many files as the owner adds (the owner, 23 Nov 2026:
+// «Please allow debugger as many layers as I please»). A file's colour stays its own while it is shown; there are COLORS colours, and from the fifth
+// file on they come round again in the same order (mine), each file still on its own lines with its name at the left. The same file added again
+// takes the place (and the colour) of the one shown.
+const COLORS = 4, BARH = 13, BARGAP = 2, REPEAT = 900, NOTICE_S = 6;      // BARH, BARGAP: a bar's height and the room under it, pixels; REPEAT: a long bar writes its name again every so many pixels (as the segments' row does); NOTICE_S: a notice goes after so many seconds
+const KEPT = "debugger-added:" + D.video, KEPT_NAMES = "debugger-added-names:" + D.video, FONT_JT = "10px -apple-system, system-ui, sans-serif", FONT_LT = "600 11px -apple-system, system-ui, sans-serif";
+let ADDED = [], LIT = null;                                              // the files shown: {file, modified, text, c: its colour, type, name, …what the server read of it}; LIT: the bar clicked, {file, b}
+const CTX = document.createElement("canvas").getContext("2d"), textW = (s, font) => { CTX.font = font; return CTX.measureText(s).width; };
+const escA = s => esc(s).replace(/"/g, "&quot;");
+const where = b => (b.from[0] === b.to[0] ? `segment ${b.from[0]} · ` + (b.to[1] > b.from[1] ? `notes ${b.from[1]}–${b.to[1]}` : `note ${b.from[1]}`) : `segment ${b.from[0]} note ${b.from[1]} – segment ${b.to[0]} note ${b.to[1]}`) + ` · ${mm(b.a)}–${mm(b.b)}`;
+const LINES = {
+  jins(a) {                                                              // the bars that sound in the stretch shown, each on the first line that is free where it begins
+    const end = []; a.lane = {}; a.shown = a.bars.map((b, n) => n).filter(n => a.bars[n].b > RA && a.bars[n].a < RB).sort((x, y) => a.bars[x].a - a.bars[y].a || x - y);
+    a.shown.forEach(n => { const b = a.bars[n]; let l = end.findIndex(e => e <= b.a + 1e-9); if (l < 0) l = end.length; end[l] = b.b; a.lane[n] = l; });
+    a.h = Math.max(1, end.length) * (BARH + BARGAP) + 4; } };
+const DRAWS = {
+  jins(a, f, g) {                                                        // thin bars, the name at the centre (and again every REPEAT pixels along a long bar); a name that does not fit is in the bar's title
+    a.shown.forEach(n => { const b = a.bars[n], x0 = X(Math.max(b.a, RA)), x1 = X(Math.min(b.b, RB)), w = Math.max(x1 - x0, 2), y = a.y + 2 + a.lane[n] * (BARH + BARGAP), tw = textW(b.name, FONT_JT), c = (x0 + x1) / 2, room = w / 2 - tw / 2 - 4;
+      g.push(`<rect x=${x0.toFixed(1)} y=${y} width=${w.toFixed(1)} height=${BARH} rx=3 class=jb style="fill:var(--r${a.c % COLORS});stroke:var(--r${a.c % COLORS})" data-f=${f} data-b=${n}><title>${esc(b.name)} · ${esc(where(b))} · ${esc(a.name)}</title></rect>`);
+      if (room >= 0) for (let k = -Math.floor(room / REPEAT); k <= Math.floor(room / REPEAT); k++) g.push(`<text x=${(c + k * REPEAT).toFixed(1)} y=${y + BARH - 3.5} class=jt text-anchor=middle>${esc(b.name)}</text>`); }); } };
+LINES.trend = LINES.jins; DRAWS.trend = DRAWS.jins;                     // TREND: the same bars as JINS, under its own type
+function say(text) { const d = document.createElement("div"); d.textContent = text; el("toast").appendChild(d); setTimeout(() => d.remove(), NOTICE_S * 1000); }      // a small notice that goes by itself
+function keep() { try { localStorage.setItem(KEPT_NAMES, JSON.stringify(ADDED.map(a => a.file))); localStorage.setItem(KEPT, JSON.stringify(ADDED.map(a => ({ file: a.file, modified: a.modified, text: a.text, c: a.c })))); } catch (e) {} }      // best effort: what cannot be kept is said after the reload
+async function addOne(file, modified, text, c) {
+  let r; try { r = await (await fetch("add/" + encodeURIComponent(D.video), { method: "POST", body: text })).json(); } catch (e) { r = { refused: "the debugger's server did not answer" }; }
+  const was = ADDED.findIndex(a => a.file === file);
+  if (r.refused) { say(`«${file}» is not shown: ${r.refused}`); return; }
+  const used = new Set(ADDED.filter((a, i) => i !== was).map(a => a.c)); let k = 0; while (used.has(k)) k++;      // the first place in the order that no file shown holds
+  const one = { file, modified, text, c: was >= 0 ? ADDED[was].c : Number.isInteger(c) && !used.has(c) ? c : k, ...r };
+  if (was >= 0) { ADDED[was] = one; if (LIT && LIT.file === file) LIT = null; } else ADDED.push(one);
+}
+async function addFiles(files) { for (const f of [...files]) await addOne(f.name, f.lastModified, await f.text()); el("addf").value = ""; keep(); chips(); redraw(); }
+async function restore() {                                               // after a reload: the files kept for this recording are read again by the server; one that is gone is said in a notice, nothing more
+  let names = [], kept = []; try { names = JSON.parse(localStorage.getItem(KEPT_NAMES) || "[]"); kept = JSON.parse(localStorage.getItem(KEPT) || "[]"); } catch (e) { return; }
+  if (!names.length && !kept.length) return;
+  names.filter(n => !kept.some(k => k.file === n)).forEach(n => say(`«${n}» could not be brought back: add it again`));
+  for (const k of kept) await addOne(k.file, k.modified, k.text, k.c);
+  keep(); chips(); redraw();
+}
+function removeAdded(f) { if (LIT && LIT.file === ADDED[f].file) LIT = null; ADDED.splice(f, 1); keep(); chips(); redraw(); }
+function chips() { el("added").innerHTML = ADDED.map((a, f) => `<span class=chip title="${escA(`${a.type} · ${a.bars.length} bars · the file ${a.file}, written ${new Date(a.modified).toLocaleString()}`)}"><i style="background:var(--r${a.c % COLORS})"></i>${esc(a.type)} · ${esc(a.name)}<button onclick="removeAdded(${f})" title="take this layer off the picture">✕</button></span>`).join(""); }
+function redraw() { const b = el("scroll"), x = b.scrollLeft; draw(); b.scrollLeft = x; }
+// A CLICK ON A BAR lights the notes of its «because»: a line of the file's colour under each, with what it counted as (over the note when a ▼ is under it). The same bar again puts them out.
+function light(f, b) { LIT = LIT && LIT.file === ADDED[f].file && LIT.b === b ? null : { file: ADDED[f].file, b }; lights(); }
+function lights() {
+  const box = el("lit"); if (!box) return; document.querySelectorAll(".jb.lit").forEach(e => e.classList.remove("lit")); const g = [], f = LIT ? ADDED.findIndex(a => a.file === LIT.file) : -1;
+  if (f >= 0 && ADDED[f].bars[LIT.b]) { const a = ADDED[f], r = document.querySelector(`.jb[data-f="${f}"][data-b="${LIT.b}"]`); if (r) r.classList.add("lit");
+    a.bars[LIT.b].because.forEach(([k, i, key]) => { if (ONE && k - 1 !== CUR) return; const s = SEGS[k - 1], n = s.notes[i - 1], x = X(n[0]), w = Math.max(n[1] * PXS, 2), y = yIn(s, G.y1, G.h1)(s.q[n[2]]);
+      g.push(`<line x1=${x.toFixed(1)} y1=${(y + 9).toFixed(1)} x2=${(x + w).toFixed(1)} y2=${(y + 9).toFixed(1)} class=bq style="stroke:var(--r${a.c % COLORS})" /><text x=${(x + w / 2).toFixed(1)} y=${(n[7] < 0 ? y - 19 : y + 21).toFixed(1)} class=bk text-anchor=middle>${esc(key)}</text>`); }); }
+  else LIT = null;
+  box.innerHTML = g.join("");
+}
+
+// PLAY ONLY A SELECTED AREA (the owner, 20 Nov 2026: «can I request for a feature to play "selected area" only in the debugger? I need to debug those pieces
+// separatly»): drag across the picture, or type note numbers of the segment in view («2-15», both ends in); Play then plays only that and stops at its end.
+// A link can carry the area too: «?v=VIDEO&range=41.3-45.1», in seconds (read where the page starts, at the bottom of this file).
+let SEL = null, DRAG = null;
+function band(a, b) { let r = el("selband"); if (!r) { r = document.createElementNS("http://www.w3.org/2000/svg", "rect"); r.id = "selband"; r.setAttribute("class", "selb"); r.setAttribute("y", G.y0); r.setAttribute("height", G.ya - G.y0); el("pic").insertBefore(r, el("cur")); } r.setAttribute("x", X(a)); r.setAttribute("width", Math.max(1, (b - a) * PXS)); }
+function select(a, b, how) { SEL = { a, b }; band(a, b); if (how === "drag") el("sel").value = `${mm(a)}–${mm(b)}`; seek(a); }
+function selNotes(v) { const m = String(v).match(/(\d+)\s*[-–]\s*(\d+)/); if (!m) { selClear(); return; } const s = SEGS[CUR], i = Math.max(1, Math.min(+m[1], +m[2])), j = Math.min(s.notes.length, Math.max(+m[1], +m[2])); if (i > s.notes.length) return;
+  const a = s.notes[i - 1][0], b = s.notes[j - 1][0] + s.notes[j - 1][1]; el("sel").value = `${i}-${j}`; select(a, b, "notes"); const box = el("scroll"); box.scrollLeft = X(a) - L - 40; }
+function clickSeek(t) { if (SEL && (t < SEL.a - 0.01 || t > SEL.b + 0.01)) selClear(); seek(t); }      // a click outside the selection ends it
+function selClear() { SEL = null; el("sel").value = ""; const r = el("selband"); if (r) r.remove(); }
+
+// THE PLAYING
+let yt = null, ready = false, pending = null, playing = false, timer = null, RATE = 1, NOW = SEGS[0].from, focus = -1, lit = null;
+try { RATE = +localStorage.getItem("debugger-speed") || 1; } catch (e) {}
+function speed(r) { RATE = +r; try { localStorage.setItem("debugger-speed", RATE); } catch (e) {} if (ready) yt.setPlaybackRate(RATE); }
+function zoom(z, t, px) { PXS = +z; el("zoom").value = String(PXS); try { localStorage.setItem("debugger-zoom", PXS); } catch (e) {} draw(); el("scroll").scrollLeft = t === undefined ? X(NOW) - el("scroll").clientWidth / 2 : X(t) - px; }
+// cmd+scroll (or a pinch) over the picture: the next zoom step in or out, the moment under the mouse staying where it is
+const ZOOMS = [240, 480, 960, 1920, 3840]; let WACC = 0;
+function wheelZoom(ev) { if (!ev.metaKey && !ev.ctrlKey) return; ev.preventDefault(); WACC += ev.deltaY; if (Math.abs(WACC) < 40) return;
+  const i = ZOOMS.indexOf(PXS), j = Math.max(0, Math.min(ZOOMS.length - 1, (i < 0 ? ZOOMS.findIndex(z => z >= PXS) : i) + (WACC < 0 ? 1 : -1))); WACC = 0; if (ZOOMS[j] === PXS) return;
+  const box = el("scroll"), px = ev.clientX - box.getBoundingClientRect().left, t = RA + (box.scrollLeft + px - L) / PXS; zoom(ZOOMS[j], t, px); }
+function single(on) { ONE = !!on; try { localStorage.setItem("debugger-one", ONE ? "1" : "0"); } catch (e) {} CUR = segAt(NOW); draw(); }
+function api() { if (window.YT || el("ytapi")) return; const s = document.createElement("script"); s.id = "ytapi"; s.src = "https://www.youtube.com/iframe_api"; document.head.appendChild(s); }
+window.onYouTubeIframeAPIReady = () => { yt = new YT.Player("yt", { host: "https://www.youtube.com", videoId: D.video, playerVars: { rel: 0, playsinline: 1, enablejsapi: 1, start: Math.floor(NOW) },
+  events: { onReady: () => { ready = true; yt.setPlaybackRate(RATE); if (pending !== null) { const p = pending; pending = null; seek(p); } }, onStateChange: ev => state(ev.data === 1 || ev.data === 3) } }); };
+function state(on) { playing = on; el("pp").textContent = on ? "❚❚ Pause" : "▶ Play"; clearInterval(timer); if (on) timer = setInterval(tick, 40); }
+function toggle() { if (playing) { yt.pauseVideo(); state(false); return; }
+  if (SEL && (NOW >= SEL.b - 0.02 || NOW < SEL.a - 0.05)) NOW = SEL.a;                                     // a selection: Play begins it again
+  else if (!SEL && ONE && (NOW >= SEGS[CUR].to || NOW < SEGS[CUR].from - 0.5)) NOW = SEGS[CUR].from;        // the segment was played to its end: Play begins it again
+  if (!ready) { pending = NOW; api(); return; } yt.setPlaybackRate(RATE); yt.seekTo(NOW, true); yt.playVideo(); state(true); }
+function seek(t) { NOW = t; if (ONE && segAt(t) !== CUR) { CUR = segAt(t); draw(); } else mark(t, true); if (!ready) { pending = t; api(); return; } yt.setPlaybackRate(RATE); yt.seekTo(t, true); yt.playVideo(); state(true); }
+function tick() { if (!yt || !yt.getCurrentTime) return; NOW = yt.getCurrentTime(); mark(NOW, true); if (NOW >= (SEL ? SEL.b : ONE ? SEGS[CUR].to + 0.3 : DUR)) { yt.pauseVideo(); state(false); if (SEL) { NOW = SEL.b; mark(NOW, false); } } }      // one segment at a time: the playing stops at the segment's end
+function show(k) { if (k === focus) return; focus = k; lit = null; axis(k); table(k); if (PK !== k) segStaff(k); }
+const TAGS = [["h", "a hang"], ["u", "▲ top turn"], ["d", "▼ bottom turn"]];
+function mark(now, follow) {
+  const c = el("cur"), x = X(now), box = el("scroll"); c.setAttribute("x1", x); c.setAttribute("x2", x);
+  if (follow && (x < box.scrollLeft + L + 30 || x > box.scrollLeft + box.clientWidth - 200)) box.scrollLeft = x - L - 60;           // the picture follows the playing
+  const k = ONE ? CUR : segAt(now), s = SEGS[k]; show(k);
+  let on = -1; for (let i = 0; i < s.notes.length; i++) if (now >= s.notes[i][0] && now < s.notes[i][0] + s.notes[i][1]) on = i;
+  const hz = D.hz[Math.round(now / STEP)]; el("hznow").textContent = hz ? hz.toFixed(1) + " Hz" : "—";
+  const key = k + ":" + on; if (key === lit) return; lit = key;
+  document.querySelectorAll(".sounding").forEach(e => e.classList.remove("sounding")); const lights = {};
+  if (on < 0) { el("nowname").textContent = now < s.from || now > s.to ? "silence" : "between notes"; el("nowline").textContent = ""; }
+  else { const [t, d, p, heard, own, off, db, turn, hang] = s.notes[on], prev = on ? s.q[p] - s.q[s.notes[on - 1][2]] : null;
+    document.querySelectorAll(`.note[data-k="${k}"][data-i="${on}"], #pic .tn[data-k="${k}"][data-i="${on}"], #pstaff .sn1[data-p="${p}"], #tbl tr[data-p="${p}"]`).forEach(e => e.classList.add("sounding"));
+    const row = document.querySelector(`#tbl tr[data-p="${p}"]`), tb = el("tblbox"); if (row && (row.offsetTop < tb.scrollTop + 24 || row.offsetTop > tb.scrollTop + tb.clientHeight - 40)) tb.scrollTop = row.offsetTop - tb.clientHeight / 2;
+    el("nowname").textContent = `note ${on + 1} · ${s.names[p]} · ${d.toFixed(2)} s`;
+    el("nowline").textContent = `at ${mm(t)} · heard at ${heard.toFixed(1)} Hz · the note's own ${own.toFixed(1)} Hz (${off > 0 ? "+" : ""}${off.toFixed(0)} cents) · ${db.toFixed(0)} dB${prev === null ? "" : ` · step from note ${on}: ${signed(prev)}`}`;
+    lights.h = !!hang; lights.u = turn > 0; lights.d = turn < 0; }
+  TAGS.forEach(([id]) => el("tag-" + id).classList.toggle("on", !!lights[id]));
+}
+(() => { el("speed").value = String(RATE); el("zoom").value = String(PXS); el("one").checked = ONE; el("nowtags").innerHTML = TAGS.map(([id, text]) => `<span class="tag ${id}" id=tag-${id}>${text}</span>`).join("");
+  const rg = (new URLSearchParams(location.search).get("range") || "").match(/^\s*(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)\s*$/);      // a link with «range=41.3-45.1» (seconds; the owner,
+  if (rg && +rg[2] > +rg[1] && +rg[1] < DUR) { SEL = { a: +rg[1], b: Math.min(DUR, +rg[2]) }; NOW = SEL.a; }                          // 22 Nov 2026): opened with that stretch selected; Play plays only that
+  CUR = segAt(NOW); draw(); api(); restore();
+  if (SEL) { el("sel").value = `${mm(SEL.a)}–${mm(SEL.b)}`; el("scroll").scrollLeft = X(SEL.a) - L - 40; } else el("scroll").scrollLeft = 0;
+  el("scroll").addEventListener("wheel", wheelZoom, { passive: false });
+  el("scroll").addEventListener("scroll", () => { el("axis").style.top = -el("scroll").scrollTop + "px"; if (!playing && !ONE) { const b = el("scroll"), x = X(NOW); if (x < b.scrollLeft + L || x > b.scrollLeft + b.clientWidth) show(segAt(RA + (b.scrollLeft + (b.clientWidth + L) / 2 - L) / PXS)); else if (focus !== segAt(NOW)) mark(NOW); } });
+  let rz = null, seen = el("tl").clientHeight + "x" + el("tl").clientWidth;                // the picture is drawn again when the room for it changes
+  new ResizeObserver(() => { const now = el("tl").clientHeight + "x" + el("tl").clientWidth; if (now === seen) return; seen = now; clearTimeout(rz); rz = setTimeout(draw, 120); }).observe(el("tl"));
+  addEventListener("keydown", ev => { if (ev.code === "Space" && !/^(SELECT|BUTTON|INPUT)$/.test(ev.target.tagName)) { ev.preventDefault(); toggle(); } }); })();
+</script></body></html>
